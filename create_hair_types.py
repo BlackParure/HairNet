@@ -24,7 +24,7 @@ def create_rgb_hair_resize(folder_initial, folder_final_rgb):
     
     
 # Folder where images for the assigments are located
-folder_initial_a = "datasets/224/Type_Intial/Type_3/Type_3a/Front_View_3a/"
+folder_initial_a = "datasets/224/Type_Intial/Type_3/Type_3a/"
 folder_final_rgb_a = "datasets/224/Type_RGB/type_a/"
 
 folder_initial_b = "datasets/224/Type_Intial/Type_3/Type_3b/"

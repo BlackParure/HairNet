@@ -8,7 +8,7 @@ from keras.layers.convolutional import Conv2D, Conv2DTranspose
 from keras.layers.pooling import MaxPooling2D, GlobalMaxPool2D
 from keras.layers import Input, BatchNormalization, Activation, Dense, Dropout
 from keras.models import Model, load_model
-from keras.layers.merge import concatenate, add
+from keras.layers import concatenate, add
 
 def conv2d_block(input_tensor, n_filters, kernel_size = 3, batchnorm = True):
     """Function to add 2 convolutional layers with the parameters passed to it"""

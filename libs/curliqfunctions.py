@@ -12,8 +12,7 @@ import cv2
 plt.style.use("ggplot")
 #%matplotlib inline
 from skimage.transform import resize
-from keras.preprocessing.image import img_to_array, load_img
-
+from tensorflow.keras.utils import img_to_array, load_img
 
 number_channel = 3
 im_width = 224
