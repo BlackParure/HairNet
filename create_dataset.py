@@ -9,11 +9,11 @@ import sys, tarfile
 import shutil
 
 # WE SELECT THE FACES THAT WE ARE GOING TO USE
-folder_images = "datasets/lfw_funneled/"
-folder_mask = "datasets/parts_lfw_funneled_gt_images/"
+folder_images = "lfw_datasets/lfw_funneled/"
+folder_mask = "lfw_datasets/parts_lfw_funneled_gt_images/"
 
-hair_segment = "datasets/hair_segment/"
-hair_training = "datasets/hair_training/"
+hair_segment = "lfw_datasets/hair_segment/"
+hair_training = "lfw_datasets/hair_training/"
 
 
 def extract(tar_url, extract_path='.'):
@@ -100,14 +100,14 @@ def convert_mask_gray():
 
 ######################################## Creating Folder #########################################################
 
-shutil.rmtree("datasets/")
-os.mkdir("datasets/")
+shutil.rmtree("lfw_datasets/")
+os.mkdir("lfw_datasets/")
 os.mkdir(hair_segment)
 os.mkdir(hair_training)
-os.mkdir("datasets/test/")
-os.mkdir("datasets/results/")
+os.mkdir("lfw_datasets/test/")
+os.mkdir("lfw_datasets/results/")
 
-######################################### Downloading Datasets ###################################################
+######################################### Downloading lfw_datasets ###################################################
 
 url = "http://vis-www.cs.umass.edu/lfw/lfw-funneled.tgz"
 # Downloading the file by sending the request to the URL
@@ -119,7 +119,7 @@ filename = url.split('/')[-1]
 with open(filename,'wb') as output_file:
     output_file.write(req.content)
 print('Downloading Completed')
-extract(filename, "datasets/")
+extract(filename, "lfw_datasets/")
 os.remove(filename)
 
 url = "http://vis-www.cs.umass.edu/lfw/part_labels/parts_lfw_funneled_gt_images.tgz"
@@ -131,11 +131,11 @@ filename = url.split('/')[-1]
 with open(filename,'wb') as output_file:
     output_file.write(req.content)
 print('Downloading Completed')
-extract(filename, "datasets/")
+extract(filename, "lfw_datasets/")
 os.remove(filename) 
 
 
-######################################## Transform Datasets ########################################################
+######################################## Transform lfw_datasets ########################################################
 
 #rgbToGray() Use this function if you want to use gray images
 convert_mask_gray()
