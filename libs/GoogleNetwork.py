@@ -5,7 +5,7 @@ Created on Mon May 13 00:33:13 2019
 @author: Gael
 """
 
-from network import Network
+from Network import Network
 
 class GoogLeNet(Network):
     def setup(self):

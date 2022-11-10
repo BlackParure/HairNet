@@ -8,23 +8,24 @@ Created on Mon May 13 01:06:38 2019
 import gc
 gc.collect()
 import os
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 import numpy as np
 import scipy.io
 import sys
 sys.path.insert(0, 'libs/')
 from GoogleNetwork import GoogLeNet as DNN
-from keras.preprocessing.image import img_to_array, load_img
-
+from tensorflow.keras.utils import img_to_array, load_img
+from matplotlib import pyplot as plt
 ########################### This file is used to train the data
 #The input images should be 224x224x3
 
 
 ###############              Folder locations
 # Specify the location of the hair segment obtained from data augmentation
-folder_data_a = 'datasets/224/augmentation/type_a/'   
-folder_data_b = 'datasets/224/augmentation/type_b/'
-folder_data_c = 'datasets/224/augmentation/type_c/'
+folder_data_a = '/content/drive/MyDrive/dataset/224/Type_Intial/Type_3/Type_3a/'   
+folder_data_b = '/content/drive/MyDrive/dataset/224/Type_Intial/Type_3/Type_3b/'
+folder_data_c = '/content/drive/MyDrive/dataset/224/Type_Intial/Type_3/Type_3c/'
 
 ###############                Parameters
 iterations = 500
@@ -58,7 +59,8 @@ def reading_training_data(folder_data, hair_type):
     for i in range(len(allimages)):
         y_train[i] = label
         img = load_img(folder_data+allimages[i]) # This is a PIL image
-        X_train[i] = img_to_array(img)  # this is a Numpy array with shape (3, 224, 224)
+        resized_images= tf.image.resize(img, (224, 224))
+        X_train[i] = resized_images.eval(session=tf.compat.v1.Session())  # this is a Numpy array with shape (3, 224, 224)
     return X_train, y_train
 
 #############            Normalization
@@ -169,8 +171,8 @@ gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=0.9133)
 print('Starting training')
 with tf.Session(config=tf.ConfigProto(gpu_options=gpu_options)) as sess:
     sess.run(init)
-    saver = tf.train.import_meta_graph('Save2/model_last.ckpt.meta')
-    saver.restore(sess, "Save2/model_last.ckpt")
+    # saver = tf.train.import_meta_graph('Save2/model_last.ckpt.meta')
+    # saver.restore(sess, "Save2/model_last.ckpt")
     for i in range(iterations):
         X_train_batch, y_train_batch = next(new_batch)
 

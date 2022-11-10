@@ -6,7 +6,8 @@ Created on Mon May 13 00:51:57 2019
 """
 
 import numpy as np
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 
 DEFAULT_PADDING = 'SAME'
 
@@ -210,7 +211,7 @@ class Network(object):
 
     @layer
     def softmax(self, input, name):
-        input_shape = map(lambda v: v.value, input.get_shape())
+        input_shape = list(map(lambda v: v.value, input.get_shape()))
         if len(input_shape) > 2:
             # For certain models (like NiN), the singleton spatial dimensions
             # need to be explicitly squeezed, since they're not broadcast-able
@@ -219,7 +220,7 @@ class Network(object):
                 input = tf.squeeze(input, squeeze_dims=[1, 2])
             else:
                 raise ValueError('Rank 2 tensor input expected for softmax!')
-        return tf.nn.softmax(input, name)
+        return tf.nn.softmax(input, name=name)
 
     @layer
     def batch_normalization(self, input, name, scale_offset=True, relu=False):
